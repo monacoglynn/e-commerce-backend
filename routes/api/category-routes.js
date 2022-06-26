@@ -6,11 +6,14 @@ const {
 
 // The `/api/categories` endpoint
 
+const opt = ['id', 'product_name', 'price', 'stock']
+
 router.get('/', async (req, res) => {
   try {
     const categoryData = await Category.findAll({
       include: [{
-        model: Product
+        model: Product,
+        attributes: opt
       }]
     });
     res.status(200).json(categoryData);
@@ -23,7 +26,8 @@ router.get('/:id', async (req, res) => {
   try {
     const categoryData = await Category.findByPk(req.params.id, {
       include: [{
-        model: Product
+        model: Product,
+        attributes: opt
       }]
     });
     res.status(200).json(categoryData);
